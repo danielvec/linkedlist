@@ -44,11 +44,11 @@ class LinkedList
 
   # returns the node at the given index
   def at(index)
-    @count = 0
+    count = 0
     current_node = @head
-    while @count < index
+    while count < index
       unless current_node.next_node.nil?
-        @count += 1
+        count += 1
         current_node = current_node.next_node
       end
     end
@@ -88,10 +88,32 @@ class LinkedList
   def to_s
     string = ''
     (0..size - 1).each do |i|
-      string += "(#{self.at(i).value}) -> "
+      string += "(#{at(i).value}) -> "
     end
     string += 'nil'
     string
+  end
+
+  # inserts a new node with the provided value at the given index
+  def insert_at(value, index)
+    count = 0
+    current_node = @head
+    while count < index - 1
+      count += 1
+      current_node = current_node.next_node
+    end
+    current_node.next_node = Node.new(value, at(count + 1))
+  end
+
+  # removes the node at the given index.
+  def remove_at(index)
+    count = 0
+    current_node = @head
+    while count < index - 1
+      count += 1
+      current_node = current_node.next_node
+    end
+    current_node.next_node = current_node.next_node.next_node
   end
 end
 
@@ -104,3 +126,4 @@ class Node
     @next_node = next_node
   end
 end
+
